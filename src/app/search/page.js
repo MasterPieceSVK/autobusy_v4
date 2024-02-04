@@ -53,7 +53,7 @@ export default function Search() {
   function getDeparturesByStopId(e) {
     console.log(e.target);
     const stop_id = e.target.value;
-    axios.post(`http://localhost:5000/stopsById/${stop_id}`).then((data) => {
+    axios.post(`${baseUrl}/stopsById/${stop_id}`).then((data) => {
       setDepartures(data.data.PlannedDepartures);
       setDatalist();
       console.log(data.data.PlannedDepartures);
