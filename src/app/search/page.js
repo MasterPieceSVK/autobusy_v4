@@ -73,10 +73,10 @@ export default function Search() {
           />
           {datalist && (
             <div className="flex flex-col">
-              {datalist.map((stop) => {
+              {datalist.map((stop, index) => {
                 return (
                   <Result
-                    // key={index}
+                    key={index}
                     result={stop}
                     getDeparturesByStopId={getDeparturesByStopId}
                   />
