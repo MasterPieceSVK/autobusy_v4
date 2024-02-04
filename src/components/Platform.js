@@ -8,7 +8,7 @@ export default function Platform({
   return (
     <button
       className={`btn ${
-        activePlatform == platformNo ? "btn-secondary" : "btn-primary"
+        activePlatform == platformNo ? "btn-accent" : "btn-primary"
       }`}
       onClick={filterDeparturesByPlatform}
       value={platformNo}
