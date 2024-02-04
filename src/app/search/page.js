@@ -10,7 +10,8 @@ export default function Search() {
   const [stops, setStops] = useState();
   const [datalist, setDatalist] = useState([]);
   const [departures, setDepartures] = useState();
-
+  const [earlier, setEarlier] = useState(0);
+  const [stopId, setStopId] = useState(null);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(showPosition);
   }, []);
@@ -52,14 +53,34 @@ export default function Search() {
 
   function getDeparturesByStopId(e) {
     console.log(e.target);
-    const stop_id = e.target.value;
-    axios.post(`${baseUrl}/stopsById/${stop_id}`).then((data) => {
-      setDepartures(data.data.PlannedDepartures);
-      setDatalist();
-      console.log(data.data.PlannedDepartures);
-    });
+    setStopId(e.target.value);
   }
 
+  useEffect(() => {
+    if (stopId) {
+      axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
+        setDepartures(data.data.PlannedDepartures);
+        setDatalist();
+        console.log(data.data.PlannedDepartures);
+      });
+    }
+  }, [stopId]);
+
+  function handleEarlierClick(e) {
+    setEarlier(() => earlier + 1);
+  }
+
+  useEffect(() => {
+    console.log(earlier);
+    console.log(stopId);
+
+    if (latitude && longitude && stopId) {
+      axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
+        setDepartures(data.data.PlannedDepartures);
+        console.log(data.data.PlannedDepartures);
+      });
+    }
+  }, [earlier]);
   return (
     <div>
       <div className="flex flex-col items-center">
@@ -91,6 +112,7 @@ export default function Search() {
           <Departures
             departures={departures}
             setNearestDepartures={setDepartures}
+            handleEarlierClick={handleEarlierClick}
           />
         )}
       </div>
