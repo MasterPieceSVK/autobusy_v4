@@ -9,6 +9,7 @@ export default function Home() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [nearestDepartures, setNearestDepartures] = useState();
+  const [earlier, setEarlier] = useState(0);
 
   function showPosition(position) {
     setLatitude(position.coords.latitude);
@@ -18,7 +19,9 @@ export default function Home() {
   useEffect(() => {
     if (latitude && longitude) {
       axios
-        .post(`${baseUrl}/nearestDepartures/${longitude}/${latitude}`)
+        .post(
+          `${baseUrl}/nearestDepartures/${longitude}/${latitude}/${earlier}`
+        )
         .then((data) => {
           setNearestDepartures(data.data);
           console.log(data.data);
@@ -33,6 +36,23 @@ export default function Home() {
     console.log(nearestDepartures);
   }, [nearestDepartures]);
 
+  function handleEarlierClick(e) {
+    setEarlier(() => earlier + 1);
+  }
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      axios
+        .post(
+          `${baseUrl}/nearestDepartures/${longitude}/${latitude}/${earlier}`
+        )
+        .then((data) => {
+          setNearestDepartures(data.data);
+          console.log(data.data);
+        });
+    }
+  }, [earlier]);
+
   return (
     <div>
       {/* <h1 className="text-3xl"> Welcome</h1>
@@ -44,6 +64,7 @@ export default function Home() {
           <Departures
             departures={nearestDepartures}
             setNearestDepartures={setNearestDepartures}
+            handleEarlierClick={handleEarlierClick}
           />
         )}
       </div>

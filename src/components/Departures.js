@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import DepartureCard from "./DepartureCard";
 import Platform from "./Platform";
 
-export default function Departures({ departures, setNearestDepartures }) {
+export default function Departures({
+  departures,
+  setNearestDepartures,
+  handleEarlierClick,
+}) {
   const [platforms, setPlatforms] = useState({});
   const [filteredDepartures, setFilteredDepartures] = useState();
   const [activePlatform, setActivePlatform] = useState("All");
@@ -33,6 +37,11 @@ export default function Departures({ departures, setNearestDepartures }) {
   return (
     <div>
       <div className="mt-3">
+        <div className="flex justify-center mb-4">
+          <button className="btn btn-primary" onClick={handleEarlierClick}>
+            Load Earlier
+          </button>
+        </div>
         <h3 className="text-2xl text-center mb-3 font-bold">Platforms:</h3>
         <div className="flex gap-4 justify-center flex-wrap">
           <button
