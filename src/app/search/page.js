@@ -4,6 +4,7 @@ import Departures from "@/components/Departures";
 import Result from "@/components/Result";
 import axios from "axios";
 import { useEffect, useState } from "react";
+const baseUrl = "https://autobusyv3backend-production.up.railway.app";
 
 export default function Search() {
   const [stops, setStops] = useState();
@@ -28,11 +29,9 @@ export default function Search() {
     search = search.split(" ").join("+");
     if (search) {
       axios
-        .post(
-          `http://localhost:5000/searchStops/${search}/${longitude}/${latitude}`
-        )
+        .post(`${baseUrl}/searchStops/${search}/${longitude}/${latitude}`)
         .then((data) => {
-          setStops(data.data.Stops);
+          //   setStops(data.data.Stops);
           let datalistArray = [];
           data.data.Stops.forEach((stop) => {
             const dataObject = {
@@ -52,7 +51,7 @@ export default function Search() {
   }, [datalist]);
 
   function getDeparturesByStopId(e) {
-    console.log("a");
+    console.log(e.target);
     const stop_id = e.target.value;
     axios.post(`http://localhost:5000/stopsById/${stop_id}`).then((data) => {
       setDepartures(data.data.PlannedDepartures);
@@ -70,6 +69,7 @@ export default function Search() {
             placeholder="Name of Stop"
             className="input input-bordered input-primary w-full max-w-xs  mb-5"
             onInput={searchStops}
+            onClick={(e) => (e.target.value = "")}
           />
           {datalist && (
             <div className="flex flex-col">

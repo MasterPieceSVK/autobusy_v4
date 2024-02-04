@@ -32,9 +32,9 @@ export default function Departures({ departures, setNearestDepartures }) {
 
   return (
     <div>
-      <div>
+      <div className="mt-3">
         <h3 className="text-2xl text-center mb-3 font-bold">Platforms:</h3>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-4 justify-center flex-wrap">
           <button
             className={`btn ${
               activePlatform == "All" ? "btn-secondary" : "btn-primary"
@@ -57,13 +57,16 @@ export default function Departures({ departures, setNearestDepartures }) {
           })}
         </div>
       </div>
-      {filteredDepartures
-        ? filteredDepartures.map((departure) => {
-            return <DepartureCard departure={departure} />;
-          })
-        : departures.map((departure) => {
-            return <DepartureCard departure={departure} />;
-          })}
+      <div className="flex flex-col items-center mt-3">
+        <h2 className="text-2xl font-bold"> Departures:</h2>
+        {filteredDepartures
+          ? filteredDepartures.map((departure) => {
+              return <DepartureCard departure={departure} />;
+            })
+          : departures.map((departure) => {
+              return <DepartureCard departure={departure} />;
+            })}
+      </div>
     </div>
   );
 }

@@ -3,6 +3,8 @@ import Departures from "@/components/Departures";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const baseUrl = "https://autobusyv3backend-production.up.railway.app";
+
 export default function Home() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
@@ -16,9 +18,7 @@ export default function Home() {
   useEffect(() => {
     if (latitude && longitude) {
       axios
-        .post(
-          `http://localhost:5000/nearestDepartures/${longitude}/${latitude}`
-        )
+        .post(`${baseUrl}/nearestDepartures/${longitude}/${latitude}`)
         .then((data) => {
           setNearestDepartures(data.data);
           console.log(data.data);
