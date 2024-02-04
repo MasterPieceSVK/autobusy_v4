@@ -64,7 +64,9 @@ export default function Departures({
         <div className="flex gap-4 justify-center flex-wrap">
           <button
             className={`btn ${
-              activePlatform == "All" ? "btn-accent" : "btn-primary"
+              activePlatform == "All"
+                ? "btn-accent border-neutral border-2"
+                : "btn-primary"
             }`}
             onClick={filterDeparturesByPlatform}
             value="All"

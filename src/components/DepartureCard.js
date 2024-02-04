@@ -11,7 +11,7 @@ export default function DepartureCard({ departure }) {
     return hours + ":" + minutes;
   }
   return (
-    <div className="card w-96 bg-primary text-primary-content my-4 ">
+    <div className="card w-96 bg-primary text-primary-content my-4 border-neutral border-[1px]">
       <div className="card-body flex flex-col items-center">
         <h3 className="text-2xl">
           {convertToHHMM(departure.PlannedDepartureTime)}
