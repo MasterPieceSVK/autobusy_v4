@@ -68,15 +68,15 @@ export default function Search() {
             type="text"
             placeholder="Name of Stop"
             className="input input-bordered input-primary w-full max-w-xs  mb-5"
-            onInput={searchStops}
+            onChange={searchStops}
             onClick={(e) => (e.target.value = "")}
           />
           {datalist && (
             <div className="flex flex-col">
-              {datalist.map((stop, index) => {
+              {datalist.map((stop) => {
                 return (
                   <Result
-                    key={index}
+                    // key={index}
                     result={stop}
                     getDeparturesByStopId={getDeparturesByStopId}
                   />
