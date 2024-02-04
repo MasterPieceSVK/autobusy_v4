@@ -40,7 +40,12 @@ export default function Home() {
       {longitude && <h1>{longitude}</h1>} */}
 
       <div className="flex justify-center flex-col items-center">
-        {nearestDepartures && <Departures departures={nearestDepartures} />}
+        {nearestDepartures && (
+          <Departures
+            departures={nearestDepartures}
+            setNearestDepartures={setNearestDepartures}
+          />
+        )}
       </div>
     </div>
   );
