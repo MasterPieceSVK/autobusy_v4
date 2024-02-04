@@ -66,6 +66,8 @@ export default function Home() {
             setNearestDepartures={setNearestDepartures}
             handleEarlierClick={handleEarlierClick}
             loading={loading}
+            setEarlier={setEarlier}
+            earlier={earlier}
           />
         )}
       </div>

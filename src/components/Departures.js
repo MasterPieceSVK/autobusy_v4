@@ -9,6 +9,8 @@ export default function Departures({
   setNearestDepartures,
   handleEarlierClick,
   loading,
+  setEarlier,
+  earlier,
 }) {
   const [platforms, setPlatforms] = useState({});
   const [filteredDepartures, setFilteredDepartures] = useState();
@@ -47,10 +49,16 @@ export default function Departures({
   ) : (
     <div>
       <div className="mt-3">
-        <div className="flex justify-center mb-4">
-          <button className="btn btn-primary" onClick={handleEarlierClick}>
-            Load Earlier
-          </button>
+        <div className="flex justify-center mb-4 flex-col items-center">
+          {earlier == 0 ? (
+            <button className="btn btn-primary" onClick={handleEarlierClick}>
+              Load Earlier
+            </button>
+          ) : (
+            <button className="btn btn-primary" onClick={() => setEarlier(0)}>
+              Reset Time
+            </button>
+          )}
         </div>
         <h3 className="text-2xl text-center mb-3 font-bold">Platforms:</h3>
         <div className="flex gap-4 justify-center flex-wrap">

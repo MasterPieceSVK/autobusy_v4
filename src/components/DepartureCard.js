@@ -17,7 +17,7 @@ export default function DepartureCard({ departure }) {
           {convertToHHMM(departure.PlannedDepartureTime)}
         </h3>
 
-        <h2 className="card-title">
+        <h2 className="card-title text-center">
           {departure.TimeTableTrip.TimeTableLine.Line}:{" "}
           {departure.TimeTableTrip.Destination}
         </h2>

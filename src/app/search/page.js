@@ -122,6 +122,8 @@ export default function Search() {
             setNearestDepartures={setDepartures}
             handleEarlierClick={handleEarlierClick}
             loading={loading}
+            setEarlier={setEarlier}
+            earlier={earlier}
           />
         )}
       </div>
