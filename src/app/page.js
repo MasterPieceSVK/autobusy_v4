@@ -10,7 +10,7 @@ export default function Home() {
   const [longitude, setLongitude] = useState();
   const [nearestDepartures, setNearestDepartures] = useState();
   const [earlier, setEarlier] = useState(0);
-
+  const [loading, setLoading] = useState(true);
   function showPosition(position) {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
@@ -18,6 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     if (latitude && longitude) {
+      setLoading(true);
       axios
         .post(
           `${baseUrl}/nearestDepartures/${longitude}/${latitude}/${earlier}`
@@ -25,6 +26,7 @@ export default function Home() {
         .then((data) => {
           setNearestDepartures(data.data);
           console.log(data.data);
+          setLoading(false);
         });
     }
   }, [latitude]);
@@ -42,6 +44,7 @@ export default function Home() {
 
   useEffect(() => {
     if (latitude && longitude) {
+      setLoading(true);
       axios
         .post(
           `${baseUrl}/nearestDepartures/${longitude}/${latitude}/${earlier}`
@@ -49,33 +52,23 @@ export default function Home() {
         .then((data) => {
           setNearestDepartures(data.data);
           console.log(data.data);
+          setLoading(false);
         });
     }
   }, [earlier]);
 
   return (
     <div>
-      {/* <h1 className="text-3xl"> Welcome</h1>
-      {latitude && <h1>{latitude}</h1>}
-      {longitude && <h1>{longitude}</h1>} */}
-
       <div className="flex justify-center flex-col items-center">
         {nearestDepartures && (
           <Departures
             departures={nearestDepartures}
             setNearestDepartures={setNearestDepartures}
             handleEarlierClick={handleEarlierClick}
+            loading={loading}
           />
         )}
       </div>
     </div>
   );
 }
-
-// useEffect(() => {
-//   console.log(latitude);
-//   console.log(longitude);
-//   axios
-//     .post(`http://localhost:5000/nearestStop/${latitude}/${longitude}`)
-//     .then((data) => console.log(data.data));
-// }, [latitude]);
