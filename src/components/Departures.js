@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import DepartureCard from "./DepartureCard";
 import Platform from "./Platform";
+import EosIconsThreeDotsLoading from "./LoadingAnimation";
+import NoResults from "./NoResults";
 
 export default function Departures({
   departures,
   setNearestDepartures,
   handleEarlierClick,
+  loading,
 }) {
   const [platforms, setPlatforms] = useState({});
   const [filteredDepartures, setFilteredDepartures] = useState();
@@ -34,7 +37,14 @@ export default function Departures({
     }
   }
 
-  return (
+  return loading ? (
+    <EosIconsThreeDotsLoading />
+  ) : departures.length == 0 ? (
+    <div className="flex flex-col items-center mt-16">
+      <NoResults />
+      <h1>No results for this stop</h1>
+    </div>
+  ) : (
     <div>
       <div className="mt-3">
         <div className="flex justify-center mb-4">

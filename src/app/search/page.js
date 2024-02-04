@@ -12,6 +12,9 @@ export default function Search() {
   const [departures, setDepartures] = useState();
   const [earlier, setEarlier] = useState(0);
   const [stopId, setStopId] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(showPosition);
   }, []);
@@ -58,10 +61,12 @@ export default function Search() {
 
   useEffect(() => {
     if (stopId) {
+      setLoading(true);
       axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
         setDepartures(data.data.PlannedDepartures);
         setDatalist();
         console.log(data.data.PlannedDepartures);
+        setLoading(false);
       });
     }
   }, [stopId]);
@@ -75,9 +80,12 @@ export default function Search() {
     console.log(stopId);
 
     if (latitude && longitude && stopId) {
+      setLoading(true);
+
       axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
         setDepartures(data.data.PlannedDepartures);
         console.log(data.data.PlannedDepartures);
+        setLoading(false);
       });
     }
   }, [earlier]);
@@ -113,6 +121,7 @@ export default function Search() {
             departures={departures}
             setNearestDepartures={setDepartures}
             handleEarlierClick={handleEarlierClick}
+            loading={loading}
           />
         )}
       </div>
