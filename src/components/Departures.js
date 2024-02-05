@@ -12,31 +12,34 @@ export default function Departures({
   setEarlier,
   earlier,
 }) {
-  const [platforms, setPlatforms] = useState({});
+  const [busLines, setBusLines] = useState({});
   const [filteredDepartures, setFilteredDepartures] = useState();
   const [activePlatform, setActivePlatform] = useState("All");
-
   useEffect(() => {
-    const newPlatforms = {};
-    departures.forEach((platform) => {
-      newPlatforms[platform.PlatformNumber] = platform.PlatformNumber;
+    const newBusLines = {};
+    departures.forEach((busLine) => {
+      newBusLines[busLine.TimeTableTrip.TimeTableLine.Line] =
+        busLine.TimeTableTrip.TimeTableLine.Line;
     });
-    setPlatforms(newPlatforms);
+    setBusLines(newBusLines);
   }, [departures]);
 
-  function filterDeparturesByPlatform(e) {
+  function filterDeparturesByBusLine(e) {
     e.preventDefault();
     setActivePlatform(e.target.value);
 
-    const platform = e.target.value;
-    if (platform == "All") {
+    const busLine = e.target.value;
+    if (busLine == "All") {
       setFilteredDepartures(departures);
     } else {
       const filteredDepartures = departures.filter((departure) => {
-        return departure.PlatformNumber == platform;
+        return departure.TimeTableTrip.TimeTableLine.Line == busLine;
       });
       setFilteredDepartures(filteredDepartures);
     }
+  }
+  function reloadPage() {
+    location.reload();
   }
 
   return loading ? (
@@ -49,7 +52,7 @@ export default function Departures({
   ) : (
     <div>
       <div className="mt-3">
-        <div className="flex justify-center mb-4 flex-col items-center">
+        <div className="flex mb-4 justify-center gap-5 items-center">
           {earlier == 0 ? (
             <button className="btn btn-primary" onClick={handleEarlierClick}>
               Load Earlier
@@ -59,8 +62,11 @@ export default function Departures({
               Reset Time
             </button>
           )}
+          <button className="btn btn-primary" onClick={reloadPage}>
+            Refresh
+          </button>
         </div>
-        <h3 className="text-2xl text-center mb-3 font-bold">Platforms:</h3>
+        <h3 className="text-2xl text-center mb-3 font-bold">Lines:</h3>
         <div className="flex gap-4 justify-center flex-wrap">
           <button
             className={`btn ${
@@ -68,18 +74,18 @@ export default function Departures({
                 ? "btn-accent border-neutral border-2"
                 : "btn-primary"
             }`}
-            onClick={filterDeparturesByPlatform}
+            onClick={filterDeparturesByBusLine}
             value="All"
           >
             All
           </button>
-          {Object.values(platforms).map((platform, i) => {
-            if (platform > 0) {
+          {Object.values(busLines).map((busLine, i) => {
+            if (busLine > 0) {
               return (
                 <Platform
                   key={i}
-                  platformNo={platform}
-                  filterDeparturesByPlatform={filterDeparturesByPlatform}
+                  busLineNo={busLine}
+                  filterDeparturesByBusLine={filterDeparturesByBusLine}
                   activePlatform={activePlatform}
                 />
               );

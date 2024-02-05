@@ -1,6 +1,6 @@
 export default function Platform({
-  platformNo,
-  filterDeparturesByPlatform,
+  busLineNo,
+  filterDeparturesByBusLine,
   activePlatform,
 }) {
   console.log(activePlatform);
@@ -8,14 +8,14 @@ export default function Platform({
   return (
     <button
       className={`btn ${
-        activePlatform == platformNo
+        activePlatform == busLineNo
           ? "btn-accent border-neutral border-2"
           : "btn-primary"
       }`}
-      onClick={filterDeparturesByPlatform}
-      value={platformNo}
+      onClick={filterDeparturesByBusLine}
+      value={busLineNo}
     >
-      {platformNo}
+      {busLineNo}
     </button>
   );
 }
