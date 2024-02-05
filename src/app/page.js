@@ -12,6 +12,7 @@ export default function Home() {
   const [earlier, setEarlier] = useState(0);
   const [loading, setLoading] = useState(true);
   const [nearestStops, setNearestStops] = useState([]);
+  const [stopId, setStopId] = useState();
   function showPosition(position) {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
@@ -33,14 +34,9 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(showPosition);
   }, []);
 
-  useEffect(() => {
-    console.log(nearestDepartures);
-  }, [nearestDepartures]);
-
   function handleEarlierClick(e) {
     setEarlier(() => earlier + 1);
   }
-
   useEffect(() => {
     if (latitude && longitude) {
       setLoading(true);
@@ -56,24 +52,24 @@ export default function Home() {
     }
   }, [earlier]);
   async function handleNearestStopClick(e) {
-    const stopId = e.target.value;
-
-    setLoading(true);
-    axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
-      setNearestDepartures(data.data.PlannedDepartures);
-      setLoading(false);
-    });
+    setStopId(e.target.value);
   }
+
+  useEffect(() => {
+    if (stopId) {
+      setLoading(true);
+      axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
+        setNearestDepartures(data.data.PlannedDepartures);
+        setLoading(false);
+      });
+    }
+  }, [stopId]);
 
   useEffect(() => {
     if (nearestStops && nearestStops[0] && nearestStops[0].StopID) {
       const stopId = nearestStops[0].StopID;
+      setStopId(stopId);
       console.log(stopId);
-      setLoading(true);
-      axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
-        setNearestDepartures(data.data.PlannedDepartures);
-        setLoading(false);
-      });
     }
   }, [nearestStops]);
 
