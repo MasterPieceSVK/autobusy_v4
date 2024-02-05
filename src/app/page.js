@@ -11,6 +11,7 @@ export default function Home() {
   const [nearestDepartures, setNearestDepartures] = useState();
   const [earlier, setEarlier] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [nearestStops, setNearestStops] = useState([]);
   function showPosition(position) {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
@@ -20,11 +21,9 @@ export default function Home() {
     if (latitude && longitude) {
       setLoading(true);
       axios
-        .post(
-          `${baseUrl}/nearestDepartures/${longitude}/${latitude}/${earlier}`
-        )
+        .post(`${baseUrl}/nearestStop/${longitude}/${latitude}`)
         .then((data) => {
-          setNearestDepartures(data.data);
+          setNearestStops(data.data);
           console.log(data.data);
           setLoading(false);
         });
@@ -56,10 +55,46 @@ export default function Home() {
         });
     }
   }, [earlier]);
+  async function handleNearestStopClick(e) {
+    const stopId = e.target.value;
+
+    setLoading(true);
+    axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
+      setNearestDepartures(data.data.PlannedDepartures);
+      setLoading(false);
+    });
+  }
+
+  useEffect(() => {
+    if (nearestStops && nearestStops[0] && nearestStops[0].StopID) {
+      const stopId = nearestStops[0].StopID;
+      console.log(stopId);
+      setLoading(true);
+      axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
+        setNearestDepartures(data.data.PlannedDepartures);
+        setLoading(false);
+      });
+    }
+  }, [nearestStops]);
 
   return (
     <div>
       <div className="flex justify-center flex-col items-center">
+        {nearestStops && (
+          <select
+            className="select select-primary w-full max-w-xs"
+            onChange={handleNearestStopClick}
+          >
+            {nearestStops.map(async (stop, i) => {
+              return (
+                <option key={i} className="text-center" value={stop.StopID}>
+                  {stop.StopName}
+                </option>
+              );
+            })}
+          </select>
+        )}
+
         {nearestDepartures && (
           <Departures
             departures={nearestDepartures}
