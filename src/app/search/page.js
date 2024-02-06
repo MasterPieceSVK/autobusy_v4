@@ -64,17 +64,17 @@ export default function Search() {
 
   return (
     <div>
-      <div className="flex flex-col items-center">
-        <div className="bg-primary p-3 rounded-xl">
+      <div className="flex flex-col items-center ">
+        <div className="bg-primary p-3 rounded-xl w-[300px] flex flex-col items-center">
           <input
             type="text"
             placeholder="Name of Stop"
-            className="input input-bordered input-primary w-full max-w-xs  mb-5"
+            className="input input-bordered input-primary w-full max-w-xs  mb-5 text-center"
             onChange={searchStops}
             onClick={(e) => (e.target.value = "")}
           />
           {datalist && (
-            <div className="flex flex-col">
+            <div className="flex flex-col w-[96%]">
               {datalist.map((stop, index) => {
                 return (
                   <Result
