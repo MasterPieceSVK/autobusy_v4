@@ -4,7 +4,7 @@ import Departures from "@/components/Departures";
 import Result from "@/components/Result";
 import axios from "axios";
 import { useEffect, useState } from "react";
-const baseUrl = "https://autobusyv3backend-production.up.railway.app";
+const baseUrl = "https://autobusy-backend.onrender.com";
 
 export default function Search() {
   const [stops, setStops] = useState();

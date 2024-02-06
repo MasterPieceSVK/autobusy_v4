@@ -42,9 +42,7 @@ export default function Departures({
     location.reload();
   }
 
-  return loading ? (
-    <EosIconsThreeDotsLoading />
-  ) : departures.length == 0 ? (
+  return departures.length == 0 ? (
     <div className="flex flex-col items-center mt-16">
       <NoResults />
       <h1>No results for this stop</h1>
