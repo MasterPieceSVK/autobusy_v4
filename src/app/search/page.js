@@ -20,6 +20,8 @@ export default function Search() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
+  let timeoutId = null;
+
   function searchStops(e) {
     let search = e.target.value;
     if (search == "") {
@@ -27,21 +29,28 @@ export default function Search() {
     }
     search = search.split(" ").join("+");
     if (search) {
-      axios
-        .post(`${baseUrl}/searchStops/${search}/${longitude}/${latitude}`)
-        .then((data) => {
-          //   setStops(data.data.Stops);
-          let datalistArray = [];
-          data.data.Stops.forEach((stop) => {
-            const dataObject = {
-              stop_id: stop.StopID,
-              stop_name: stop.StopName,
-            };
+      // Clear the timeout if it's already set.
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
 
-            datalistArray.push(dataObject);
+      // Set a new timeout to call the API after 200ms
+      timeoutId = setTimeout(() => {
+        axios
+          .post(`${baseUrl}/searchStops/${search}/${longitude}/${latitude}`)
+          .then((data) => {
+            let datalistArray = [];
+            data.data.Stops.forEach((stop) => {
+              const dataObject = {
+                stop_id: stop.StopID,
+                stop_name: stop.StopName,
+              };
+
+              datalistArray.push(dataObject);
+            });
+            setDatalist(datalistArray);
           });
-          setDatalist(datalistArray);
-        });
+      }, 200);
     }
   }
 
