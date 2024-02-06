@@ -2,7 +2,7 @@ export default function Result({ result, getDeparturesByStopId }) {
   if (result.stop_id > 0) {
     return (
       <button
-        className="btn btn-outline btn-neutral"
+        className="btn btn-outline btn-accent"
         value={result.stop_id}
         onClick={getDeparturesByStopId}
       >

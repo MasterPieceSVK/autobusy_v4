@@ -9,7 +9,7 @@ export default function EosIconsThreeDotsLoading(props) {
       viewBox="0 0 24 24"
       {...props}
     >
-      <circle cx={18} cy={12} r={0} fill="#ffba5a">
+      <circle cx={18} cy={12} r={0} fill="#0d1b2a">
         <animate
           attributeName="r"
           begin="0.503s"
@@ -20,7 +20,7 @@ export default function EosIconsThreeDotsLoading(props) {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle cx={12} cy={12} r={0} fill="#ffba5a">
+      <circle cx={12} cy={12} r={0} fill="#0d1b2a">
         <animate
           attributeName="r"
           begin="0.247s"
@@ -31,7 +31,7 @@ export default function EosIconsThreeDotsLoading(props) {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle cx={6} cy={12} r={0} fill="#ffba5a">
+      <circle cx={6} cy={12} r={0} fill="#0d1b2a">
         <animate
           attributeName="r"
           begin={0}

@@ -11,20 +11,28 @@ export default function DepartureCard({ departure }) {
     return hours + ":" + minutes;
   }
   return (
-    <div className="card w-96 bg-primary text-primary-content my-4 border-neutral border-[1px]">
-      <div className="card-body flex flex-col items-center">
-        <h3 className="text-2xl">
-          {convertToHHMM(departure.PlannedDepartureTime)}
-        </h3>
-
-        <h2 className="card-title text-center">
-          {departure.TimeTableTrip.TimeTableLine.Line}:{" "}
-          {departure.TimeTableTrip.Destination}
+    <div
+      className={`card w-96  bg-primary  text-primary-content my-1 border-neutral border-[1px]`}
+    >
+      <div className="card-body flex  flex-col items-center gap-1">
+        <div className="flex  justify-center gap-32">
+          <h3
+            className={`text-2xl ${
+              departure.DelayMinutes >= 1 ? "text-red-600" : "text-green-500"
+            }`}
+          >
+            {convertToHHMM(departure.PlannedDepartureTime)}
+          </h3>
+        </div>
+        <h2 className="card-title">
+          {departure.TimeTableTrip.TimeTableLine.Line}
         </h2>
-        <p className="text-xl font-bold">Delay: {departure.DelayMinutes} min</p>
-        {/* <div className="card-actions justify-end">
-          <button className="btn">Buy Now</button>
-        </div> */}
+        <h2 className="card-title">{departure.TimeTableTrip.Destination}</h2>
+        {departure.DelayMinutes > 1 && (
+          <p className={`text-xl font-bold text-red-600`}>
+            Delay: {departure.DelayMinutes} min
+          </p>
+        )}
       </div>
     </div>
   );

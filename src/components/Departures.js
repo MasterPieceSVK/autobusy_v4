@@ -3,6 +3,7 @@ import DepartureCard from "./DepartureCard";
 import Platform from "./Platform";
 import EosIconsThreeDotsLoading from "./LoadingAnimation";
 import NoResults from "./NoResults";
+import Refresh from "./Refresh";
 
 export default function Departures({
   departures,
@@ -61,7 +62,7 @@ export default function Departures({
             </button>
           )}
           <button className="btn btn-primary" onClick={reloadPage}>
-            Refresh
+            <Refresh />
           </button>
         </div>
         <h3 className="text-2xl text-center mb-3 font-bold">Lines:</h3>
