@@ -31,6 +31,7 @@ export default function Home() {
         });
     }
   }, [latitude]);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(showPosition);
   }, []);
