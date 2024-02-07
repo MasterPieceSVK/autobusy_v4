@@ -12,6 +12,7 @@ export default function StopSite({ params }) {
   const [departures, setDepartures] = useState();
   const [loading, setLoading] = useState(false);
   const [stopInfo, setStopInfo] = useState();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   function handleEarlierClick(e) {
     setEarlier(() => earlier + 1);
@@ -33,6 +34,17 @@ export default function StopSite({ params }) {
       axios.post(`${baseUrl}/stopName/${stopId}`).then((data) => {
         setStopInfo(data.data[0]);
       });
+
+      const saved = JSON.parse(localStorage.getItem("saved"));
+      if (saved) {
+        const isInSaved = saved.map((id) => {
+          if (id == stopId) {
+            setIsFavorite(true);
+          }
+        });
+        console.log(isInSaved);
+        console.log(typeof saved);
+      }
     }
   }, [stopId]);
 
@@ -55,6 +67,25 @@ export default function StopSite({ params }) {
     }
   }, [earlier]);
 
+  function saveStop(e) {
+    let saved = JSON.parse(localStorage.getItem("saved"));
+    if (saved) {
+      saved.push(Number(stopId));
+    } else {
+      saved = [stopId]; // make it an array
+    }
+    localStorage.setItem("saved", JSON.stringify(saved));
+  }
+
+  function removeStop(e) {
+    let saved = JSON.parse(localStorage.getItem("saved"));
+    if (saved) {
+      saved = saved.filter((id) => {
+        return id != stopId;
+      });
+      localStorage.setItem("saved", JSON.stringify(saved));
+    }
+  }
   return (
     <div>
       <Search />
@@ -69,6 +100,10 @@ export default function StopSite({ params }) {
             loading={loading}
             setEarlier={setEarlier}
             earlier={earlier}
+            saveStop={saveStop}
+            removeStop={removeStop}
+            setIsFavorite={setIsFavorite}
+            isFavorite={isFavorite}
           />
         )}
       </div>

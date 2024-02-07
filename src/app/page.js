@@ -14,6 +14,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [nearestStops, setNearestStops] = useState([]);
   const [stopId, setStopId] = useState();
+  const [isFavorite, setIsFavorite] = useState(false);
+
   function showPosition(position) {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
@@ -62,6 +64,17 @@ export default function Home() {
         setNearestDepartures(data.data.PlannedDepartures);
       });
     }
+
+    const saved = JSON.parse(localStorage.getItem("saved"));
+    if (saved) {
+      const isInSaved = saved.map((id) => {
+        if (id == stopId) {
+          setIsFavorite(true);
+        }
+      });
+      console.log(isInSaved);
+      console.log(typeof saved);
+    }
   }, [stopId]);
 
   useEffect(() => {
@@ -72,6 +85,25 @@ export default function Home() {
     }
   }, [nearestStops]);
 
+  function saveStop(e) {
+    let saved = JSON.parse(localStorage.getItem("saved"));
+    if (saved) {
+      saved.push(Number(stopId));
+    } else {
+      saved = [stopId]; // make it an array
+    }
+    localStorage.setItem("saved", JSON.stringify(saved));
+  }
+
+  function removeStop(e) {
+    let saved = JSON.parse(localStorage.getItem("saved"));
+    if (saved) {
+      saved = saved.filter((id) => {
+        return id != stopId;
+      });
+      localStorage.setItem("saved", JSON.stringify(saved));
+    }
+  }
   return (
     <div>
       <div className="flex justify-center flex-col items-center">
@@ -98,6 +130,10 @@ export default function Home() {
             loading={loading}
             setEarlier={setEarlier}
             earlier={earlier}
+            saveStop={saveStop}
+            isFavorite={isFavorite}
+            removeStop={removeStop}
+            setIsFavorite={setIsFavorite}
           />
         )}
       </div>

@@ -10,6 +10,7 @@ const baseUrl = "https://autobusy-backend.onrender.com";
 export default function Search() {
   const [datalist, setDatalist] = useState([]);
   const router = useRouter();
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(showPosition);
   }, []);

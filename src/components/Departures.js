@@ -4,6 +4,8 @@ import Platform from "./Platform";
 import EosIconsThreeDotsLoading from "./LoadingAnimation";
 import NoResults from "./NoResults";
 import Refresh from "./Refresh";
+import FullHeart from "./FullHeart";
+import BlankHeart from "./BlankHeart";
 
 export default function Departures({
   departures,
@@ -12,6 +14,10 @@ export default function Departures({
   loading,
   setEarlier,
   earlier,
+  saveStop,
+  isFavorite,
+  removeStop,
+  setIsFavorite,
 }) {
   const [busLines, setBusLines] = useState({});
   const [filteredDepartures, setFilteredDepartures] = useState();
@@ -64,6 +70,28 @@ export default function Departures({
           <button className="btn btn-primary" onClick={reloadPage}>
             <Refresh />
           </button>
+
+          {isFavorite ? (
+            <button
+              className="btn btn-primary"
+              onClick={(e) => {
+                removeStop(e);
+                setIsFavorite(false);
+              }}
+            >
+              <FullHeart />
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary"
+              onClick={(e) => {
+                saveStop(e);
+                setIsFavorite(true);
+              }}
+            >
+              <BlankHeart />
+            </button>
+          )}
         </div>
         <h3 className="text-2xl text-center mb-3 font-bold">Lines:</h3>
         <div className="flex gap-4 justify-center flex-wrap">
