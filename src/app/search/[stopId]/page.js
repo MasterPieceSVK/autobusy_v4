@@ -11,6 +11,7 @@ export default function StopSite({ params }) {
   const [stopId, setStopId] = useState(null);
   const [departures, setDepartures] = useState();
   const [loading, setLoading] = useState(false);
+  const [stopInfo, setStopInfo] = useState();
 
   function handleEarlierClick(e) {
     setEarlier(() => earlier + 1);
@@ -22,27 +23,34 @@ export default function StopSite({ params }) {
   useEffect(() => {
     console.log(stopId);
     if (stopId) {
-      setLoading(true);
+      // setLoading(true);
       axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
         setDepartures(data.data.PlannedDepartures);
 
         console.log(data.data.PlannedDepartures);
-        setLoading(false);
+        // setLoading(false);
+      });
+      axios.post(`${baseUrl}/stopName/${stopId}`).then((data) => {
+        setStopInfo(data.data[0]);
       });
     }
   }, [stopId]);
+
+  useEffect(() => {
+    console.log(stopInfo);
+  }, [stopInfo]);
 
   useEffect(() => {
     console.log(earlier);
     console.log(stopId);
 
     if (stopId) {
-      setLoading(true);
+      // setLoading(true);
 
       axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
         setDepartures(data.data.PlannedDepartures);
         console.log(data.data.PlannedDepartures);
-        setLoading(false);
+        // setLoading(false);
       });
     }
   }, [earlier]);
@@ -50,24 +58,20 @@ export default function StopSite({ params }) {
   return (
     <div>
       <Search />
-      {loading ? (
-        <div className="flex justify-center">
-          <EosIconsThreeDotsLoading />
-        </div>
-      ) : (
-        <div className="flex justify-center flex-col items-center">
-          {departures && (
-            <Departures
-              departures={departures}
-              setNearestDepartures={setDepartures}
-              handleEarlierClick={handleEarlierClick}
-              loading={loading}
-              setEarlier={setEarlier}
-              earlier={earlier}
-            />
-          )}
-        </div>
-      )}
+
+      <div className="flex justify-center flex-col items-center">
+        <h1 className="text-3xl font-light my-4">{stopInfo?.StopName}</h1>
+        {departures && (
+          <Departures
+            departures={departures}
+            setNearestDepartures={setDepartures}
+            handleEarlierClick={handleEarlierClick}
+            loading={loading}
+            setEarlier={setEarlier}
+            earlier={earlier}
+          />
+        )}
+      </div>
     </div>
   );
 }

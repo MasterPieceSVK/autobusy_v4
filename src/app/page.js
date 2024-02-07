@@ -41,23 +41,24 @@ export default function Home() {
   }
   useEffect(() => {
     if (latitude && longitude) {
-      setLoading(true);
+      // setLoading(true);
       axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
         setNearestDepartures(data.data.PlannedDepartures);
         console.log(data.data.PlannedDepartures);
-        setLoading(false);
+        // setLoading(false);
       });
     }
   }, [earlier]);
   async function handleNearestStopClick(e) {
     setStopId(e.target.value);
+    console.log(e.target.value);
   }
 
   useEffect(() => {
     if (stopId) {
-      setLoading(true);
+      // setLoading(true);
       axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
-        setLoading(false);
+        // setLoading(false);
         setNearestDepartures(data.data.PlannedDepartures);
       });
     }
@@ -89,19 +90,15 @@ export default function Home() {
           </select>
         )}
 
-        {loading ? (
-          <EosIconsThreeDotsLoading />
-        ) : (
-          nearestDepartures && (
-            <Departures
-              departures={nearestDepartures}
-              setNearestDepartures={setNearestDepartures}
-              handleEarlierClick={handleEarlierClick}
-              loading={loading}
-              setEarlier={setEarlier}
-              earlier={earlier}
-            />
-          )
+        {nearestDepartures && (
+          <Departures
+            departures={nearestDepartures}
+            setNearestDepartures={setNearestDepartures}
+            handleEarlierClick={handleEarlierClick}
+            loading={loading}
+            setEarlier={setEarlier}
+            earlier={earlier}
+          />
         )}
       </div>
     </div>

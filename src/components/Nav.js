@@ -9,9 +9,9 @@ export default function Nav() {
       <Link
         href="/"
         className={`btn btn-ghost text-xl" ${
-          pathName.includes("search")
-            ? "bg-base-100"
-            : "bg-accent border-neutral border-2"
+          !pathName.includes("search") && !pathName.includes("favorites")
+            ? "bg-accent border-neutral border-2"
+            : "bg-base-100"
         }`}
       >
         Nearest Stop
@@ -25,6 +25,16 @@ export default function Nav() {
         }`}
       >
         Search Stop
+      </Link>
+      <Link
+        href="/favorites"
+        className={`btn btn-ghost text-xl" ${
+          pathName.includes("favorites")
+            ? "bg-accent  border-neutral border-2"
+            : "bg-base-100"
+        }`}
+      >
+        Favorites
       </Link>
     </div>
   );

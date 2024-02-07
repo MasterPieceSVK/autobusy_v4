@@ -3,8 +3,6 @@ export default function Platform({
   filterDeparturesByBusLine,
   activePlatform,
 }) {
-  console.log(activePlatform);
-
   return (
     <button
       className={`btn ${
