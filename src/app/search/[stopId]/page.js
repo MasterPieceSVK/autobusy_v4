@@ -91,7 +91,9 @@ export default function StopSite({ params }) {
       <Search />
 
       <div className="flex justify-center flex-col items-center">
-        <h1 className="text-3xl font-light my-4">{stopInfo?.StopName}</h1>
+        <h1 className="text-3xl font-light my-4 text-center">
+          {stopInfo?.StopName}
+        </h1>
         {departures && (
           <Departures
             departures={departures}
