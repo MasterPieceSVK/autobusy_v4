@@ -27,7 +27,7 @@ export default function Saved() {
     return (
       <div>
         <h1 className="text-center mt-7 px-3">
-          You don't have any stops favorited
+          You dont have any stops favorited
         </h1>
         <h1 className="text-center mt-2 px-3">
           Click the heart icon to favorite
