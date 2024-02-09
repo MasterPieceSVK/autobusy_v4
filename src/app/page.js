@@ -64,7 +64,6 @@ export default function Home() {
         setNearestDepartures(data.data.PlannedDepartures);
       });
     }
-
     const saved = JSON.parse(localStorage.getItem("saved"));
     if (saved) {
       const isInSaved = saved.map((id) => {
