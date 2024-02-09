@@ -75,7 +75,7 @@ export default function Search() {
             onClick={(e) => (e.target.value = "")}
           />
           {datalist && (
-            <div className="flex flex-col w-[96%] h-80 overflow-auto">
+            <div className="flex flex-col w-[96%] max-h-80 overflow-auto">
               {datalist.map((stop, index) => {
                 return (
                   <Result
