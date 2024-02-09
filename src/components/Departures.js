@@ -6,7 +6,6 @@ import NoResults from "./NoResults";
 import Refresh from "./Refresh";
 import FullHeart from "./FullHeart";
 import BlankHeart from "./BlankHeart";
-
 export default function Departures({
   departures,
   setNearestDepartures,

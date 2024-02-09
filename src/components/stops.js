@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Stops({ info }) {
   let lines = info.Lines.map((line) => {
@@ -24,16 +25,23 @@ export default function Stops({ info }) {
   }
 
   lines = lines.join(", ");
+
   return (
-    <Link href={`/search/${info.StopID}`}>
-      <div className="card w-96  bg-primary  text-primary-content my-1 border-neutral border-[1px]">
-        <div className="card-body flex  flex-col items-center gap-2">
-          {/* <div className="flex  justify-center gap-32"></div> */}
-          <h2 className="card-title">{info.StopName}</h2>
-          <h2>{lines}</h2>
-          {/* <h2 className="card-title"></h2> */}
+    <motion.div
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring" }}
+    >
+      <Link href={`/search/${info.StopID}`}>
+        <div className="card w-96  bg-primary  text-primary-content my-1 border-neutral border-[1px]">
+          <div className="card-body flex  flex-col items-center gap-2">
+            {/* <div className="flex  justify-center gap-32"></div> */}
+            <h2 className="card-title">{info.StopName}</h2>
+            <h2>{lines}</h2>
+            {/* <h2 className="card-title"></h2> */}
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
