@@ -30,7 +30,7 @@ export default function DepartureCard({ departure }) {
         <h2 className="card-title">{departure.TimeTableTrip.Destination}</h2>
         {departure.DelayMinutes >= 1 && (
           <p className={`text-xl font-bold text-red-600`}>
-            Delay: {departure.DelayMinutes} min
+            + {departure.DelayMinutes} min
           </p>
         )}
       </div>
