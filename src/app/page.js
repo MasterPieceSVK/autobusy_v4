@@ -105,37 +105,48 @@ export default function Home() {
   }
   return (
     <div>
-      <div className="flex justify-center flex-col items-center">
-        {nearestStops && (
-          <select
-            className="select select-primary w-full max-w-xs"
-            onChange={handleNearestStopClick}
-          >
-            {nearestStops.map(async (stop, i) => {
-              return (
-                <option key={i} className="text-center" value={stop.StopID}>
-                  {stop.StopName}
-                </option>
-              );
-            })}
-          </select>
-        )}
+      {!latitude ? (
+        <div className="grid place-items-center h-screen">
+          <h1 className="text-center">
+            Location not available <br></br> In Apple phones go to settings -
+            Location Services - Safari (Websites) - While using the app{" "}
+          </h1>
+        </div>
+      ) : (
+        <div>
+          <div className="flex justify-center flex-col items-center">
+            {nearestStops && (
+              <select
+                className="select select-primary w-full max-w-xs"
+                onChange={handleNearestStopClick}
+              >
+                {nearestStops.map(async (stop, i) => {
+                  return (
+                    <option key={i} className="text-center" value={stop.StopID}>
+                      {stop.StopName}
+                    </option>
+                  );
+                })}
+              </select>
+            )}
 
-        {nearestDepartures && (
-          <Departures
-            departures={nearestDepartures}
-            setNearestDepartures={setNearestDepartures}
-            handleEarlierClick={handleEarlierClick}
-            loading={loading}
-            setEarlier={setEarlier}
-            earlier={earlier}
-            saveStop={saveStop}
-            isFavorite={isFavorite}
-            removeStop={removeStop}
-            setIsFavorite={setIsFavorite}
-          />
-        )}
-      </div>
+            {nearestDepartures && (
+              <Departures
+                departures={nearestDepartures}
+                setNearestDepartures={setNearestDepartures}
+                handleEarlierClick={handleEarlierClick}
+                loading={loading}
+                setEarlier={setEarlier}
+                earlier={earlier}
+                saveStop={saveStop}
+                isFavorite={isFavorite}
+                removeStop={removeStop}
+                setIsFavorite={setIsFavorite}
+              />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
