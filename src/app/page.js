@@ -1,8 +1,13 @@
 "use client";
+import Link from "next/link";
+
 import Departures from "@/components/Departures";
 import EosIconsThreeDotsLoading from "@/components/LoadingAnimation";
 import axios from "axios";
+import { redirect } from "next/dist/server/api-utils";
 import { useEffect, useState } from "react";
+import Result from "@/components/Result";
+import StopOption from "@/components/StopOption";
 
 const baseUrl = "https://autobusy-backend.onrender.com";
 
@@ -60,7 +65,9 @@ export default function Home() {
     }
   }, [earlier]);
   async function handleNearestStopClick(e) {
-    setStopId(e.target.value);
+    const stopId = e.target.value;
+    // redirect(307, `/search/${stopId}`);
+    // setStopId(e.target.value);
     console.log(e.target.value);
   }
 
@@ -125,39 +132,24 @@ export default function Home() {
           </h1>
         </div>
       ) : (
-        <div>
-          <div className="flex justify-center flex-col items-center">
-            {nearestStops && (
-              <select
-                className="select select-primary w-full max-w-xs"
-                onChange={handleNearestStopClick}
-              >
+        nearestStops && (
+          <div>
+            <div className="flex justify-center flex-col items-center bg-secondary rounded-xl p-3 m-1">
+              <h1 className="text-2xl mb-3 font-thin text-white">
+                Nearest Stops
+              </h1>
+              <div className="flex flex-col w-[96%] max-w-96 rounded-2xl p-3 overflow-auto bg-primary gap-1">
                 {nearestStops.map(async (stop, i) => {
-                  return (
-                    <option key={i} className="text-center" value={stop.StopID}>
-                      {stop.StopName}
-                    </option>
-                  );
+                  const result = {
+                    stop_name: stop.StopName,
+                    stop_id: stop.StopID,
+                  };
+                  return <StopOption result={result} key={i}></StopOption>;
                 })}
-              </select>
-            )}
-
-            {nearestDepartures && (
-              <Departures
-                departures={nearestDepartures}
-                setNearestDepartures={setNearestDepartures}
-                handleEarlierClick={handleEarlierClick}
-                loading={loading}
-                setEarlier={setEarlier}
-                earlier={earlier}
-                saveStop={saveStop}
-                isFavorite={isFavorite}
-                removeStop={removeStop}
-                setIsFavorite={setIsFavorite}
-              />
-            )}
+              </div>
+            </div>
           </div>
-        </div>
+        )
       )}
     </div>
   );
