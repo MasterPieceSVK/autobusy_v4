@@ -135,7 +135,7 @@ export default function Home() {
         nearestStops && (
           <div>
             <div className="flex justify-center flex-col items-center bg-secondary rounded-xl p-3 m-1">
-              <h1 className="text-2xl mb-3 font-thin text-white">
+              <h1 className="text-2xl mb-3 font-medium text-white">
                 Nearest Stops
               </h1>
               <div className="flex flex-col w-[96%] max-w-96 rounded-2xl p-3 overflow-auto bg-primary gap-1">
