@@ -129,8 +129,9 @@ export default function Home() {
           <h1 className="text-center font-medium">
             Location not available <br></br>
             <br></br>
-            <br></br> In Apple phones go to settings - Location Services -
-            Safari (Websites) - Set it to "While Using the App"{" "}
+            <br></br> In Apple phones go to settings -&gt; Location Services
+            -&gt; Safari (Websites) -&gt; Set it to &quot;While Using the
+            App&quot;{" "}
           </h1>
         </div>
       ) : (
