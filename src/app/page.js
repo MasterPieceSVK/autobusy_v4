@@ -125,10 +125,12 @@ export default function Home() {
   return (
     <div>
       {!latitude ? (
-        <div className="grid place-items-center h-screen">
-          <h1 className="text-center">
-            Location not available <br></br> In Apple phones go to settings -
-            Location Services - Safari (Websites) - While using the app{" "}
+        <div className="h-screen">
+          <h1 className="text-center font-medium">
+            Location not available <br></br>
+            <br></br>
+            <br></br> In Apple phones go to settings - Location Services -
+            Safari (Websites) - Set it to "While Using the App"{" "}
           </h1>
         </div>
       ) : (
