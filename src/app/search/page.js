@@ -37,8 +37,10 @@ export default function Search() {
 
       // Set a new timeout to call the API after 200ms
       timeoutId = setTimeout(() => {
+        // axios
+        //   .post(`${baseUrl}/searchStops/${search}/${longitude}/${latitude}`)
         axios
-          .post(`${baseUrl}/searchStops/${search}/${longitude}/${latitude}`)
+          .post(`/api/searchStops/${search}/${longitude}/${latitude}`)
           .then((data) => {
             let datalistArray = [];
             data.data.Stops.forEach((stop) => {

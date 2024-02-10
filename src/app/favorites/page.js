@@ -17,7 +17,8 @@ export default function Saved() {
   useEffect(() => {
     if (stopIds) {
       const formattedStopIds = stopIds.join(",");
-      axios.post(`${baseUrl}/stopName/${formattedStopIds}`).then((data) => {
+      // axios.post(`${baseUrl}/stopName/${formattedStopIds}`)
+      axios.post(`/api/nameOfStopById/${formattedStopIds}`).then((data) => {
         setStopsInfo(data.data);
       });
     }

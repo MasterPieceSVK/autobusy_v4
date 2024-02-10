@@ -25,15 +25,20 @@ export default function StopSite({ params }) {
     console.log(stopId);
     if (stopId) {
       // setLoading(true);
-      axios.post(`${baseUrl}/stopsById/${stopId}/0`).then((data) => {
+      // axios.post(`${baseUrl}/stopsById/${stopId}/0`)
+      axios.post(`/api/departuresByStopId/${stopId}/0`).then((data) => {
         setDepartures(data.data.PlannedDepartures);
 
         console.log(data.data.PlannedDepartures);
         // setLoading(false);
       });
-      axios.post(`${baseUrl}/stopName/${stopId}`).then((data) => {
-        setStopInfo(data.data[0]);
-      });
+      // axios.post(`${baseUrl}/stopName/${stopId}`)
+      axios
+        .post(`/api/nameOfStopById/${stopId}`)
+
+        .then((data) => {
+          setStopInfo(data.data[0]);
+        });
 
       const saved = JSON.parse(localStorage.getItem("saved"));
       if (saved) {
@@ -59,11 +64,14 @@ export default function StopSite({ params }) {
     if (stopId) {
       // setLoading(true);
 
-      axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
-        setDepartures(data.data.PlannedDepartures);
-        console.log(data.data.PlannedDepartures);
-        // setLoading(false);
-      });
+      // axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`)
+      axios
+        .post(`/api/departuresByStopId/${stopId}/${earlier}`)
+        .then((data) => {
+          setDepartures(data.data.PlannedDepartures);
+          console.log(data.data.PlannedDepartures);
+          // setLoading(false);
+        });
     }
   }, [earlier]);
 
