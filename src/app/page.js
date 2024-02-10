@@ -23,16 +23,16 @@ export default function Home() {
 
   useEffect(() => {
     if (latitude && longitude) {
-      // setLoading(true);
+      setLoading(true);
       axios
-        // .post(`${baseUrl}/nearestStop/${longitude}/${latitude}`)
-        .post(`api/nearestStops/${longitude}/${latitude}`)
+        .post(`${baseUrl}/nearestStop/${longitude}/${latitude}`)
+        // .post(`api/nearestStops/${longitude}/${latitude}`)
 
         .then((data) => {
           console.log(data.data);
           setNearestStops(data.data);
           console.log(data.data);
-          // setLoading(false);
+          setLoading(false);
         });
     }
   }, [latitude]);
@@ -46,15 +46,16 @@ export default function Home() {
   }
   useEffect(() => {
     if (latitude && longitude) {
-      // setLoading(true);
-      // axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`)
+      setLoading(true);
       axios
-        .post(`/api/departuresByStopId/${stopId}/${earlier}`)
+        .post(`${baseUrl}/stopsById/${stopId}/${earlier}`)
+        // axios
+        //   .post(`/api/departuresByStopId/${stopId}/${earlier}`)
 
         .then((data) => {
           setNearestDepartures(data.data.PlannedDepartures);
           console.log(data.data.PlannedDepartures);
-          // setLoading(false);
+          setLoading(false);
         });
     }
   }, [earlier]);
@@ -65,13 +66,13 @@ export default function Home() {
 
   useEffect(() => {
     if (stopId) {
-      // setLoading(true);
-      // axios
-      //   .post(`${baseUrl}/stopsById/${stopId}/${earlier}`)
+      setLoading(true);
       axios
-        .post(`/api/departuresByStopId/${stopId}/${earlier}`)
+        .post(`${baseUrl}/stopsById/${stopId}/${earlier}`)
+        // axios
+        //   .post(`/api/departuresByStopId/${stopId}/${earlier}`)
         .then((data) => {
-          // setLoading(false);
+          setLoading(false);
           setNearestDepartures(data.data.PlannedDepartures);
         });
     }
