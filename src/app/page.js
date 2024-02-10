@@ -25,8 +25,11 @@ export default function Home() {
     if (latitude && longitude) {
       // setLoading(true);
       axios
-        .post(`${baseUrl}/nearestStop/${longitude}/${latitude}`)
+        // .post(`${baseUrl}/nearestStop/${longitude}/${latitude}`)
+        .post(`api/nearestStops/${longitude}/${latitude}`)
+
         .then((data) => {
+          console.log(data.data);
           setNearestStops(data.data);
           console.log(data.data);
           // setLoading(false);
@@ -44,11 +47,15 @@ export default function Home() {
   useEffect(() => {
     if (latitude && longitude) {
       // setLoading(true);
-      axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
-        setNearestDepartures(data.data.PlannedDepartures);
-        console.log(data.data.PlannedDepartures);
-        // setLoading(false);
-      });
+      // axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`)
+      axios
+        .post(`/api/departuresByStopId/${stopId}/${earlier}`)
+
+        .then((data) => {
+          setNearestDepartures(data.data.PlannedDepartures);
+          console.log(data.data.PlannedDepartures);
+          // setLoading(false);
+        });
     }
   }, [earlier]);
   async function handleNearestStopClick(e) {
@@ -59,10 +66,14 @@ export default function Home() {
   useEffect(() => {
     if (stopId) {
       // setLoading(true);
-      axios.post(`${baseUrl}/stopsById/${stopId}/${earlier}`).then((data) => {
-        // setLoading(false);
-        setNearestDepartures(data.data.PlannedDepartures);
-      });
+      // axios
+      //   .post(`${baseUrl}/stopsById/${stopId}/${earlier}`)
+      axios
+        .post(`/api/departuresByStopId/${stopId}/${earlier}`)
+        .then((data) => {
+          // setLoading(false);
+          setNearestDepartures(data.data.PlannedDepartures);
+        });
     }
     const saved = JSON.parse(localStorage.getItem("saved"));
     if (saved) {
