@@ -4,7 +4,7 @@ import Search from "../page";
 import { useEffect, useState } from "react";
 import EosIconsThreeDotsLoading from "@/components/LoadingAnimation";
 import axios from "axios";
-const baseUrl = "https://autobusy-backend.onrender.com";
+const baseUrl = "https://autobusyv3-backend.onrender.com";
 
 export default function StopSite({ params }) {
   const [earlier, setEarlier] = useState(0);

@@ -5,7 +5,7 @@ import Result from "@/components/Result";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-const baseUrl = "https://autobusy-backend.onrender.com";
+const baseUrl = "https://autobusyv3-backend.onrender.com";
 
 export default function Search() {
   const [datalist, setDatalist] = useState([]);

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import Result from "@/components/Result";
 import StopOption from "@/components/StopOption";
 
-const baseUrl = "https://autobusy-backend.onrender.com";
+const baseUrl = "https://autobusyv3-backend.onrender.com";
 
 export default function Home() {
   const [latitude, setLatitude] = useState();
