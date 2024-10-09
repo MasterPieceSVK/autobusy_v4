@@ -93,7 +93,7 @@ export default function Departures({
           )}
         </div>
         <h3 className="text-2xl text-center mb-3 font-bold">Lines:</h3>
-        <div className="flex gap-4 justify-center flex-wrap">
+        <div className="flex gap-2 justify-center flex-wrap">
           <button
             className={`btn ${
               activePlatform == "All"
